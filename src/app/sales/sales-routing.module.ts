@@ -1,22 +1,24 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { Routes, RouterModule } from '@angular/router';
 
-import { SalesRoutingModule } from './users-routing.module';
 import { LayoutComponent } from './layout.component';
 import { ListComponent } from './list.component';
 import { AddEditComponent } from './add-edit.component';
 
-@NgModule({
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        SalesRoutingModule
-    ],
-    declarations: [
-        LayoutComponent,
-        ListComponent,
-        AddEditComponent
+const routes: Routes = [
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      { path: '', component: ListComponent },
+      { path: 'add', component: AddEditComponent },
+      { path: 'edit/:id', component: AddEditComponent }
     ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
-export class SalesModule { }
+export class SalesRoutingModule {}

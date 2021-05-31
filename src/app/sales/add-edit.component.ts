@@ -9,7 +9,6 @@ import {
 import { first } from 'rxjs/operators';
 
 import { SaleService, AlertService } from '../_services';
-import { MustMatch } from '../_helpers';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
@@ -31,36 +30,14 @@ export class AddEditComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
 
-    // password not required in edit mode
-    const passwordValidators = [Validators.minLength(6)];
-    if (this.isAddMode) {
-      passwordValidators.push(Validators.required);
-    }
-
-    const formOptions: AbstractControlOptions = {
-      validators: MustMatch('password', 'confirmPassword')
-    };
-    this.form = this.formBuilder.group(
-      {
-        title: ['', Validators.required],
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        role: ['', Validators.required],
-        password: [
-          '',
-          [
-            Validators.minLength(6),
-            this.isAddMode ? Validators.required : Validators.nullValidator
-          ]
-        ],
-        confirmPassword: [
-          '',
-          this.isAddMode ? Validators.required : Validators.nullValidator
-        ]
-      },
-      formOptions
-    );
+    this.form = this.formBuilder.group({
+      storeName: ['', Validators.required],
+      category: ['', Validators.required],
+      subCategory: ['', Validators.required],
+      sku: ['', Validators.required],
+      quantity: ['', Validators.required],
+      salesAmount: ['', Validators.required]
+    });
 
     if (!this.isAddMode) {
       this.saleService
@@ -88,29 +65,29 @@ export class AddEditComponent implements OnInit {
 
     this.loading = true;
     if (this.isAddMode) {
-      this.createUser();
+      this.createSale();
     } else {
-      this.updateUser();
+      this.updateSale();
     }
   }
 
-  private createUser() {
+  private createSale() {
     this.saleService
       .create(this.form.value)
       .pipe(first())
       .subscribe(() => {
-        this.alertService.success('User added', { keepAfterRouteChange: true });
+        this.alertService.success('Sale added', { keepAfterRouteChange: true });
         this.router.navigate(['../'], { relativeTo: this.route });
       })
       .add(() => (this.loading = false));
   }
 
-  private updateUser() {
+  private updateSale() {
     this.saleService
       .update(this.id, this.form.value)
       .pipe(first())
       .subscribe(() => {
-        this.alertService.success('User updated', {
+        this.alertService.success('Sale updated', {
           keepAfterRouteChange: true
         });
         this.router.navigate(['../../'], { relativeTo: this.route });

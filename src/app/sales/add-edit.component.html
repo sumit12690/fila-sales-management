@@ -39,7 +39,7 @@
     </div>
 
     <div class="form-group col">
-      <label>Qunatity</label>
+      <label>Quantity</label>
       <input type="text" formControlName="quantity" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }" />
       <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
         <div *ngIf="f.quantity.errors.required">Quantity is required</div>

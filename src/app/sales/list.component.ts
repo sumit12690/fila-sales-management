@@ -6,7 +6,7 @@ import { Sale } from '../_models';
 
 @Component({ templateUrl: 'list.component.html' })
 export class ListComponent implements OnInit {
-  users!: Sale[];
+  sales!: Sale[];
 
   constructor(private saleService: SaleService) {}
 
@@ -14,16 +14,16 @@ export class ListComponent implements OnInit {
     this.saleService
       .getAll()
       .pipe(first())
-      .subscribe(users => (this.users = users));
+      .subscribe(sales => (this.sales = sales));
   }
 
-  deleteUser(id: string) {
-    const user = this.users.find(x => x.id === id);
-    if (!user) return;
-    user.isDeleting = true;
+  deleteSale(id: string) {
+    const sale = this.sales.find(x => x.id === id);
+    if (!sale) return;
+    sale.isDeleting = true;
     this.saleService
       .delete(id)
       .pipe(first())
-      .subscribe(() => (this.users = this.users.filter(x => x.id !== id)));
+      .subscribe(() => (this.sales = this.sales.filter(x => x.id !== id)));
   }
 }

@@ -1,8 +1,10 @@
 export class Sale {
   id!: string;
-  title!: string;
-  firstName!: string;
-  lastName!: string;
-  email!: string;
+  storeName!: string;
+  category!: string;
+  subCategory!: string;
+  sku!: string;
+  quantity!: number;
+  salesAmount!: string;
   isDeleting: boolean = false;
 }

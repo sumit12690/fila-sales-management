@@ -1,28 +1,35 @@
-<h1>Users</h1>
-<a routerLink="add" class="btn btn-sm btn-success mb-2">Add User</a>
+<h1>sales</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Sale</a>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th style="width: 30%">Name</th>
-      <th style="width: 30%">Email</th>
-      <th style="width: 30%">Role</th>
+      <th style="width: 30%">Store Name</th>
+      <th style="width: 30%">Category</th>
+      <th style="width: 30%">Sub Category</th>
+      <th style="width: 30%">SKU</th>
+      <th style="width: 30%">Quantity</th>
+      <th style="width: 30%">Sales Amount</th>
       <th style="width: 10%"></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{user.title}} {{user.firstName}} {{user.lastName}}</td>
-      <td>{{user.email}}</td>
+    <tr *ngFor="let sale of sales">
+      <td>{{sale.storeName}}</td>
+      <td>{{sale.category}}</td>
+      <td>{{sale.subCategory}}</td>
+      <td>{{sale.sku}}</td>
+      <td>{{sale.quantity}}</td>
+      <td>{{sale.salesAmount}}</td>
 
       <td style="white-space: nowrap">
-        <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
-        <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
-                    <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!user.isDeleting">Delete</span>
+        <a routerLink="edit/{{sale.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+        <button (click)="deleteSale(sale.id)" class="btn btn-sm btn-danger btn-delete-sale" [disabled]="sale.isDeleting">
+                    <span *ngIf="sale.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!sale.isDeleting">Delete</span>
                 </button>
       </td>
     </tr>
-    <tr *ngIf="!users">
+    <tr *ngIf="!sales">
       <td colspan="4" class="text-center">
         <span class="spinner-border spinner-border-lg align-center"></span>
       </td>
